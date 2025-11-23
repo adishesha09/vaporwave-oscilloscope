@@ -1,0 +1,301 @@
+:root {
+    --vaporwave-pink: #ff71ce;
+    --vaporwave-cyan: #01cdfe;
+    --vaporwave-mint: #05ffa1;
+    --vaporwave-purple: #b967ff;
+    --bg: #000000;
+    --text: var(--vaporwave-cyan);
+    --accent: var(--vaporwave-pink);
+    --border: var(--vaporwave-purple);
+    --glow: var(--vaporwave-mint);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Courier New', 'Lucida Console', monospace;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 113, 206, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(1, 205, 254, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(185, 103, 255, 0.2) 0%, transparent 50%),
+        linear-gradient(45deg, #000000 0%, #1a0026 50%, #000000 100%);
+}
+
+#app {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border: 2px solid var(--border);
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow:
+        0 0 20px var(--vaporwave-pink),
+        inset 0 0 30px rgba(255, 113, 206, 0.1);
+    position: relative;
+    backdrop-filter: blur(5px);
+}
+
+/* CRT Scanline Effect */
+#app::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom,
+            transparent 50%,
+            rgba(255, 113, 206, 0.03) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Subtle flicker animation */
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.98;
+    }
+}
+
+#app {
+    animation: flicker 0.15s infinite;
+}
+
+/* Vaporwave grid background */
+#app::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(90deg, transparent 95%, rgba(1, 205, 254, 0.1) 100%),
+        linear-gradient(0deg, transparent 95%, rgba(5, 255, 161, 0.1) 100%);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1px solid var(--vaporwave-purple);
+    padding-bottom: 8px;
+    position: relative;
+    z-index: 3;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--vaporwave-cyan);
+    background: linear-gradient(45deg, rgba(255, 113, 206, 0.3), rgba(1, 205, 254, 0.3));
+    padding: 4px;
+    border: 1px solid var(--vaporwave-cyan);
+    position: relative;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.controls label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px var(--vaporwave-mint);
+}
+
+.controls-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+main {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--vaporwave-purple);
+    background: #000;
+    overflow: hidden;
+    z-index: 3;
+}
+
+canvas#viz {
+    width: 100%;
+    height: 400px;
+    background: #000;
+    image-rendering: pixelated;
+    filter: contrast(1.2) brightness(1.1);
+}
+
+button,
+select,
+input[type=range] {
+    background: rgba(185, 103, 255, 0.1);
+    color: var(--vaporwave-cyan);
+    border: 1px solid var(--vaporwave-purple);
+    border-radius: 0;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--vaporwave-cyan);
+}
+
+button:hover:not(:disabled) {
+    background: rgba(255, 113, 206, 0.2);
+    box-shadow: 0 0 15px var(--vaporwave-pink);
+    border-color: var(--vaporwave-pink);
+    color: var(--vaporwave-mint);
+}
+
+select {
+    background: rgba(1, 205, 254, 0.1);
+    border: 1px solid var(--vaporwave-cyan);
+    color: var(--vaporwave-cyan);
+}
+
+select:hover {
+    background: rgba(5, 255, 161, 0.2);
+    border-color: var(--vaporwave-mint);
+}
+
+input[type=range] {
+    flex: 1;
+    background: transparent;
+    height: 12px;
+}
+
+input[type=range]::-webkit-slider-track {
+    background: rgba(255, 113, 206, 0.2);
+    border: 1px solid var(--vaporwave-pink);
+    height: 4px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    background: var(--vaporwave-mint);
+    border: 1px solid var(--vaporwave-cyan);
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 10px var(--vaporwave-mint);
+}
+
+input[type=file] {
+    display: none;
+}
+
+.file-input-label {
+    display: inline-block;
+    background: rgba(1, 205, 254, 0.1);
+    color: var(--vaporwave-cyan);
+    border: 1px solid var(--vaporwave-cyan);
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--vaporwave-cyan);
+}
+
+.file-input-label:hover {
+    background: rgba(5, 255, 161, 0.2);
+    box-shadow: 0 0 15px var(--vaporwave-mint);
+    border-color: var(--vaporwave-mint);
+    color: var(--vaporwave-mint);
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(128, 128, 128, 0.1);
+    border-color: #666;
+}
+
+footer {
+    text-align: center;
+    font-size: 9px;
+    margin-top: 6px;
+    color: var(--vaporwave-pink);
+    border-top: 1px solid var(--vaporwave-pink);
+    padding-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px var(--vaporwave-pink);
+    position: relative;
+    z-index: 3;
+}
+
+/* Vaporwave blinking cursor effect */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+footer::after {
+    content: "_";
+    animation: blink 1s infinite;
+    margin-left: 2px;
+    color: var(--vaporwave-mint);
+}
+
+/* Additional vaporwave aesthetic elements */
+.vaporwave-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at center, rgba(255, 113, 206, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 30% 20%, rgba(1, 205, 254, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(5, 255, 161, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
