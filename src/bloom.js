@@ -2,7 +2,8 @@ export class Bloom {
   constructor(glCanvas) {
     this.canvas = glCanvas;
     this.gl =
-      glCanvas.getContext("webgl") || glCanvas.getContext("experimental-webgl");
+      glCanvas.getContext("webgl", { preserveDrawingBuffer: true }) || 
+      glCanvas.getContext("experimental-webgl", { preserveDrawingBuffer: true });
     if (!this.gl) throw new Error("WebGL not supported");
     this._init();
   }
